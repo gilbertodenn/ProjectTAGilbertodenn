@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -39,6 +40,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
@@ -47,5 +49,10 @@ class User extends Authenticatable
 {
     return $this->hasOne(Preference::class);
 }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 
 }

@@ -122,9 +122,8 @@
 
 <div class="container">
   <div class="left-side">
-    <img src="https://mantine.dev/logo.svg" alt="Logo">
-    <h1>Mantine</h1>
-    <p>Lorem ipsum dolor sit amet consectetur. Et nec egestas amet diam rhoncus ac vitae semper. Posuere orci elit consequat quis.</p>
+    <img style="height: 20%;width:60%" src="https://gsk.co.id/wp-content/uploads/2022/08/Logo-color-1024x400.png" alt="Logo">
+    <p>Kami adalah perusahan teknologi kreatif yang berfokus pada layanan pengembangan aplikasi berbasis immersive technology dan AI untuk membantu anda dalam kebutuhan event & marketing activation</p>
   </div>
   <div class="right-side">
     <div class="login-card">
@@ -142,7 +141,7 @@
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
-        <a href="#">Forgot Password?</a>
+        {{-- <a href="#">Forgot Password?</a> --}}
 
         <button type="submit">LOGIN</button>
       </form>

@@ -15,6 +15,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     @stack('styles')
+    <!-- Dropzone CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css" rel="stylesheet" />
+
+
     <style>
         .sidebar-nav {
             height: 100%;
@@ -55,8 +59,8 @@
                                                         width="35" height="35" class="rounded-circle">
                                                 </span>
                                                 <div class="d-flex flex-column">
-                                                    <span class="fw-semibold">{{ Auth::user()->name }}</span>
-                                                    <span class="text-muted small">{{ Auth::user()->emails }}</span>
+                                                    <span class="fw-semibold">{{ Auth::user()->name }} <small>({{ Auth::user()->role->role_name }})</small></span>
+                                                    <span class="text-muted small">{{ Auth::user()->email }}</span>
                                                 </div>
                                             </div>
                                         </button>
@@ -96,6 +100,19 @@
                         <!-- ---------------------------------- -->
                         <!-- Dashboard -->
                         <!-- ---------------------------------- -->
+                        @if(Auth::user()->role->role_name == "Super Admin")
+                        <li class="sidebar-item">
+                            <a class="sidebar-link justify-content-between" href="{{ route('admin.index') }}"
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="d-flex">
+                                        <i class="ti ti-shopping-cart"></i>
+                                    </span>
+                                    <span class="hide-menu">Manage Admin</span>
+                                </div>
+
+                            </a>
+                        </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link justify-content-between" href="{{ route('knowledge.index') }}"
                                 aria-expanded="false">
@@ -108,6 +125,7 @@
 
                             </a>
                         </li>
+                        
                         <li class="sidebar-item">
                             <a class="sidebar-link justify-content-between" href="{{ route('bot.index') }}"
                                 aria-expanded="false">
@@ -120,6 +138,7 @@
 
                             </a>
                         </li>
+                        @endif
                         <li class="sidebar-item">
                             <a class="sidebar-link justify-content-between" href="{{ route('chat.index') }}"
                                 aria-expanded="false">
@@ -132,6 +151,7 @@
 
                             </a>
                         </li>
+                        
 
                     </ul>
                 </nav>
@@ -159,11 +179,11 @@
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link " href="javascript:void(0)" id="drop1"
+                                {{-- <a class="nav-link " href="javascript:void(0)" id="drop1"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="ti ti-bell"></i>
                                     <div class="notification bg-primary rounded-circle"></div>
-                                </a>
+                                </a> --}}
                                 <div class="dropdown-menu dropdown-menu-animate-up" aria-labelledby="drop1">
                                     <div class="message-body">
                                         <a href="javascript:void(0)" class="dropdown-item">
@@ -214,6 +234,8 @@
             localStorage.setItem("theme", newTheme);
         }
     </script>
+<!-- Dropzone JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
 
 </body>
 

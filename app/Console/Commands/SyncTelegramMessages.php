@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use App\Models\Message;
+use App\Models\TelegramUser;
 
 class SyncTelegramMessages extends Command
 {
@@ -16,26 +17,47 @@ class SyncTelegramMessages extends Command
         $botToken = env('TELEGRAM_BOT_TOKEN');
         $url = "https://api.telegram.org/bot{$botToken}/getUpdates";
 
-        $response = Http::get($url);
-        $data = $response->json();
+        $response = Http::withOptions([
+            'verify' => storage_path('certs/cacert.pem'),
+        ])->get('https://api.telegram.org/bot' . env('TELEGRAM_BOT_TOKEN') . '/getUpdates');
 
+        $data = $response->json();
         $new = 0;
 
         foreach ($data['result'] ?? [] as $update) {
-            if (!isset($update['message'])) continue;
+            if (!isset($update['message'])) {
+                continue;
+            }
 
-            $text = $update['message']['text'] ?? '';
-            $isBot = $update['message']['from']['is_bot'] ?? false;
+            $msg = $update['message'];
+            $chatId = $msg['chat']['id'];
+            $firstName = $msg['from']['first_name'] ?? '';
+            $lastName = $msg['from']['last_name'] ?? '';
+            $username = $msg['from']['username'] ?? null;
+            $text = $msg['text'] ?? '';
 
-            // Prevent duplicates
-            $exists = Message::where('text', $text)
-                ->where('from', $isBot ? 'me' : 'bot')
+         
+            TelegramUser::updateOrCreate(
+                ['chat_id' => $chatId],
+                [
+                    'first_name' => $firstName,
+                    'last_name' => $lastName,
+                    'username' => $username,
+                ],
+            );
+
+           
+            $exists = Message::where('chat_id', $chatId)
+                ->where('text', $text)
+                ->where('from', 'telegram ' . $firstName)
                 ->exists();
 
             if (!$exists) {
                 Message::create([
-                    'from' => $isBot ? 'me' : 'bot',
-                    'text' => $text
+                    'chat_id' => $chatId,
+                    'from' => 'telegram ' . $firstName,
+                    'to' => 'web', 
+                    'text' => $text,
                 ]);
                 $new++;
             }
