@@ -217,53 +217,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="stepOneModal" tabindex="-1" aria-labelledby="stepOneModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content border-0 shadow-sm rounded-3 p-5 text-center">
-
-                <!-- Progress Header -->
-                <div class="d-flex justify-content-center align-items-center mb-5 gap-5">
-                    <!-- Step 1 -->
-                    <div class="text-center">
-                        <div class="rounded-circle border border-2 border-primary text-primary fw-bold d-flex align-items-center justify-content-center"
-                            style="width: 32px; height: 32px;">1</div>
-                        <div class="fw-bold text-body mt-2">First Step</div>
-                        <small class="text-muted">Upload knowledge source</small>
-                    </div>
-
-                    <div class="flex-grow-1 border-top mx-2"></div>
-
-                    <!-- Step 2 -->
-                    <div class="text-center">
-                        <div class="rounded-circle bg-light text-muted d-flex align-items-center justify-content-center"
-                            style="width: 32px; height: 32px;">2</div>
-                        <div class="fw-bold text-muted mt-2">Second Step</div>
-                        <small class="text-muted">Setup bot configurations</small>
-                    </div>
-
-                    <div class="flex-grow-1 border-top mx-2"></div>
-
-                    <!-- Step 3 -->
-                    <div class="text-center">
-                        <div class="rounded-circle bg-light text-muted d-flex align-items-center justify-content-center"
-                            style="width: 32px; height: 32px;">3</div>
-                        <div class="fw-bold text-muted mt-2">Final Step</div>
-                        <small class="text-muted">Finishing up</small>
-                    </div>
-                </div>
-
-                
-
-                <!-- Footer Buttons -->
-                <div class="d-flex justify-content-between w-100 px-5 mt-4">
-                    <a href="#" class="text-primary" data-bs-dismiss="modal">Skip</a>
-                    <button class="btn btn-primary" onclick="goToStep(currentStep + 1)">Next</button>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
+    
 
     <!-- Modal -->
     <div class="modal fade" id="stepModal" tabindex="-1" aria-labelledby="stepModalLabel" aria-hidden="true">
@@ -311,8 +265,8 @@
                         source of knowledge.</p>
                     <div class="my-4">
                         <div class="">
-                            <form action="{{ route('knowledge.store') }}" method="POST" enctype="multipart/form-data" class="dropzone" id="pdfDropzone">
-                                @csrf
+                            
+                    
             
                                 <!-- Title Input -->
                                 <div class="mb-4 text-start">
@@ -320,11 +274,11 @@
                                     <input type="text" name="title" id="title" class="form-control" placeholder="Enter document title" required>
                                 </div>
             
-                                <div class="dz-message my-2" data-dz-message>
+                                <div class="dz-message my-2 dropzone" data-dz-message id="pdfDropzone">
                                     <i class="bi bi-file-earmark-text" style="font-size: 2rem;"></i>
                                     <p class="mb-0 mt-2 text-muted">Drag PDF here or click to select</p>
                                 </div>
-                            </form>
+                            
                         </div>
 
                     </div>
