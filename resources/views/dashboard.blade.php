@@ -396,7 +396,7 @@
                     autoProcessQueue: false,
                     maxFiles: 1,
                     acceptedFiles: ".pdf",
-                }); 
+                });
             });
     
             // Chart setup
